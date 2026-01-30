@@ -15,8 +15,6 @@ GameObject:
   - component: {fileID: 3367866314246089245}
   - component: {fileID: 568469522371708367}
   - component: {fileID: 893328550900124294}
-  - component: {fileID: 1947073728750534639}
-  - component: {fileID: 2306743899242402854}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -100,12 +98,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   characterController: {fileID: 6902722787864283068}
-  weaponsManager: {fileID: 1947073728750534639}
+  weaponsManager: {fileID: 0}
   uiManager: {fileID: 0}
   mainCamera: {fileID: 0}
   inputManager: {fileID: 0}
   stats: {fileID: 11400000, guid: d471516d38cc18c4aa2a33c7d2c5c89f, type: 2}
-  playerInteraction: {fileID: 2306743899242402854}
+  playerInteraction: {fileID: 0}
   moveSpeed: 3
   sprintSpeedMultiplier: 2
   mouseSensitivity: 0.1
@@ -156,46 +154,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
   stats: {fileID: 11400000, guid: d471516d38cc18c4aa2a33c7d2c5c89f, type: 2}
---- !u!114 &1947073728750534639
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5958579932009354159}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83240880e91ff2742af3c06c86a6712d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::WeaponsManager
-  Range: 0
-  Cam: {fileID: 0}
-  ValidLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  ImpactEffect: {fileID: 0}
-  DamageEffect: {fileID: 0}
-  MuzzleFlare: {fileID: 0}
-  FlareDisplayTime: 0
-  AutoFire: 0
-  TimeBtwShots: 0
-  CurrentAmmo: 0
-  ClipSize: 0
-  RemainingAmmo: 0
-  pickUpValue: 0
-  damage: 0
-  Weapons: []
-  UIManager: {fileID: 0}
---- !u!114 &2306743899242402854
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5958579932009354159}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7953d666f6b19594f9a28f386ebb885b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerInteraction
-  interactables: []

@@ -3,9 +3,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "PlayerStats", menuName = "Player Stats")] // Create a new PlayerStats asset
 public class PlayerStats : ScriptableObject
 {
-    [Header("Configuration")]
-    public int Level; // Player level
-
     [Header("Health")]
     public float Health; // Player health
     public float MaxHealth; // Maximum player health
