@@ -1,7 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 // ==================================================
@@ -42,6 +38,7 @@ public class GameManager : Singleton<GameManager>
     /// </summary>
     private void Update()
     {
+        /*
         // Testing shortcut: Press L key to reset player stats
         // This is useful during development to quickly reset health, stamina, etc.
         if (Input.GetKeyDown(KeyCode.L))
@@ -50,5 +47,6 @@ public class GameManager : Singleton<GameManager>
             // This resets health to max, stamina to max, and other stats to default values
             player.ResetStats(); // Call the ResetStats method on the player instance
         }
+        */
     }
 }
