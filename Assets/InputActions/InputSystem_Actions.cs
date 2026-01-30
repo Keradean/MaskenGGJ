@@ -690,7 +690,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""Paused"",
                     ""type"": ""Button"",
-                    ""id"": ""058c129f-72b2-42e2-9e6a-9ac5ee2f6b0b"",
+                    ""id"": ""236f6455-ccb7-4b2e-9f56-ddd6852b9f83"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -1118,22 +1118,11 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""f9b53f80-8a14-4861-b9cd-28f979210bb7"",
-                    ""path"": ""<Keyboard>/backspace"",
-                    ""interactions"": ""Press"",
+                    ""id"": ""a9d83cda-f893-4800-ae4a-0f83c74007ad"",
+                    ""path"": """",
+                    ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Paused"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""7b0181c4-ebb4-47d0-b262-c412c107b8a0"",
-                    ""path"": ""<Gamepad>/start"",
-                    ""interactions"": ""Press"",
-                    ""processors"": """",
-                    ""groups"": "";Gamepad"",
+                    ""groups"": """",
                     ""action"": ""Paused"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false

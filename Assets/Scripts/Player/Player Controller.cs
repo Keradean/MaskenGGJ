@@ -13,12 +13,12 @@ public class PlayerController : MonoBehaviour
 
     [Header("Referenz")] // Header in Unity Inspector for organizing references
     [SerializeField] private CharacterController characterController; // Unity's built-in component for character movement
-    [SerializeField] private WeaponsManager weaponsManager; // Manages all weapon-related functions (shooting, reloading, switching)
+   // [SerializeField] private WeaponsManager weaponsManager; // Manages all weapon-related functions (shooting, reloading, switching)
     [SerializeField] private UIManager uiManager; // Manages the user interface (menus, HUD, etc.)
     [SerializeField] private Camera mainCamera; // Reference to the main camera for looking around
     [SerializeField] private InputManager inputManager; // Gets all player inputs (keyboard, mouse, controller)
     [SerializeField] private PlayerStats stats; // Stores player statistics (health, stamina, etc.)
-    [SerializeField] private PlayerInteraction playerInteraction; // Handles interactions with objects in the game world
+   // [SerializeField] private PlayerInteraction playerInteraction; // Handles interactions with objects in the game world
 
     // ==================================================
     // VARIABLE DECLARATION - MOVEMENT PARAMETERS
@@ -125,7 +125,7 @@ public class PlayerController : MonoBehaviour
         // Handle switching between weapons
         //HandleWeaponSwitching();
         // Handle interacting with objects
-        HandleInteraction();
+       // HandleInteraction();
     }
 
     // ==================================================
@@ -279,6 +279,7 @@ public class PlayerController : MonoBehaviour
         }
     }
     */
+    /*
     // ==================================================
     // HANDLE INTERACTION METHOD
     // ==================================================
@@ -292,7 +293,7 @@ public class PlayerController : MonoBehaviour
             playerInteraction.InteractWithClosest();
         }
     }
-
+    */
     // ==================================================
     // HANDLE PAUSED/UNPAUSED METHOD
     // ==================================================
