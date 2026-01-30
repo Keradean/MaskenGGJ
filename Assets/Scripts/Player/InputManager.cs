@@ -18,7 +18,7 @@ public class InputManager : MonoBehaviour
     [SerializeField] private InputActionAsset UIControls; // Stores all UI controls (e.g. pause menu)
     [SerializeField] private string actionMapNameUI = "UI"; // Name of the Action Map for UI actions
 
-    [Header("Config")]
+    [Header("Player")]
     // These strings are the names of individual actions as defined in Unity's Input System
     [SerializeField] private string movement = "Movement"; // Name for movement (WASD or Joystick)
     [SerializeField] private string rotation = "Rotation"; // Name for camera rotation (Mouse or right stick)
