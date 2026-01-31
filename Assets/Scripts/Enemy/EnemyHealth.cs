@@ -9,11 +9,12 @@ public class EnemyHealth : MonoBehaviour, IDamageable
 {
     [Header("Config")]
     [SerializeField] private float maxHealth = 100f;
+    [SerializeField] private PlayerStats playerStats; 
 
     public float CurrentHealth { get; private set; }
 
     private EnemyBrain enemyBrain;
-    private ISpawner spawner; // Optional - set by spawner if pooled
+    private ISpawner spawner; 
 
     private void Awake()
     {
@@ -53,8 +54,13 @@ public class EnemyHealth : MonoBehaviour, IDamageable
     // ==================================================
     private void Die()
     {
-        Debug.Log($"[{gameObject.name}] Died!");
+        Debug.Log($"Stirb du eleneder!!!");
 
+        if(playerStats != null)
+        {
+            playerStats.AddScore(playerStats.EnemyApeScore);
+            Debug.Log($"Her mit den Moneten");
+        }
         // Disable AI
         if (enemyBrain != null)
         {

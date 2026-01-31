@@ -2283,6 +2283,7 @@ GameObject:
   - component: {fileID: 8631137776465217957}
   - component: {fileID: 1524851160430172641}
   - component: {fileID: 6951100988563758863}
+  - component: {fileID: 5275335615504126746}
   m_Layer: 7
   m_Name: Grunt
   m_TagString: Enemy
@@ -2300,8 +2301,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.63589, y: 0, z: -5.87795}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4800183213528551179}
   - {fileID: 5839225055552376944}
@@ -2487,6 +2488,20 @@ MonoBehaviour:
   rotateToPlayer: 0
   rotationSpeed: 10
   modelRotationOffset: 0
+--- !u!114 &5275335615504126746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3089813971719084485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0c99487c344fcf439dc923c82d4df5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
+  maxHealth: 100
+  playerStats: {fileID: 11400000, guid: d471516d38cc18c4aa2a33c7d2c5c89f, type: 2}
 --- !u!1 &3141589219005580305
 GameObject:
   m_ObjectHideFlags: 0
