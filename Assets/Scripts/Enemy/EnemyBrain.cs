@@ -1,34 +1,35 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class EnemyBrain : MonoBehaviour
 {
-    [SerializeField] private string initState; // Initial state ID
-    [SerializeField] private FSMState[] states; // Array of all states
+    [SerializeField] private string initState;
+    [SerializeField] private FSMState[] states;
 
     public FSMState CurrentState { get; set; }
     public Transform Player { get; set; }
 
     private void Start()
     {
-        // Player suchen (optional, f�r sp�tere Features)
+        // Player suchen
         if (Player == null)
         {
             Player = GameObject.FindWithTag("Player")?.transform;
             if (Player == null)
             {
-                Debug.LogWarning($"[{gameObject.name}]!");
+                Debug.LogWarning($"[{gameObject.name}] Kein Player gefunden!");
             }
         }
 
+        // Validierung
         if (string.IsNullOrEmpty(initState))
         {
-            Debug.LogError($"[{gameObject.name}] Init State ist leer! Bitte im Inspector setzen.");
+            Debug.LogError($"[{gameObject.name}] Init State ist leer!");
             return;
         }
 
         if (states == null || states.Length == 0)
         {
-            Debug.LogError($"[{gameObject.name}] Keine States konfiguriert! Bitte im Inspector setzen.");
+            Debug.LogError($"[{gameObject.name}] Keine States konfiguriert!");
             return;
         }
 
@@ -40,66 +41,46 @@ public class EnemyBrain : MonoBehaviour
     {
         if (CurrentState == null)
         {
-            Debug.LogWarning($"[{gameObject.name}] CurrentState ist null!");
+            if (Time.frameCount % 300 == 0)
+            {
+                Debug.LogWarning($"[{gameObject.name}] CurrentState ist null!");
+            }
             return;
         }
 
+        // NUR State Actions ausführen - KEINE Rotation hier!
+        // Die Actions (Wander, Chase, Attack) kümmern sich selbst um Rotation
         CurrentState.UpdateState(this);
-
-        if (Player != null)
-        {
-            Vector3 directionToPlayer = new Vector3(Player.position.x, transform.position.y, Player.position.z) - transform.position;
-
-            if (directionToPlayer.magnitude > 0.1f)
-            {
-                Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5f);
-            }
-        }
     }
 
     public void ChangeState(string newStateID)
     {
         FSMState newState = GetState(newStateID);
+
         if (newState == null)
         {
             Debug.LogError($"[{gameObject.name}] State '{newStateID}' nicht gefunden!");
             return;
         }
 
-        Debug.Log($"[{gameObject.name}] Wechsel zu State: {newStateID}");
+        string previousState = CurrentState != null ? CurrentState.ID : "NULL";
         CurrentState = newState;
 
-        if (newState.Actions != null && newState.Actions.Length > 0)
-        {
-            Debug.Log($"[{gameObject.name}] State hat {newState.Actions.Length} Actions");
-            for (int i = 0; i < newState.Actions.Length; i++)
-            {
-                if (newState.Actions[i] != null)
-                {
-                    Debug.Log($"  - Action {i}: {newState.Actions[i].GetType().Name}");
-                }
-                else
-                {
-                    Debug.LogWarning($"  - Action {i}: NULL!");
-                }
-            }
-        }
-        else
-        {
-            Debug.LogWarning($"[{gameObject.name}] State '{newStateID}' hat keine Actions!");
-        }
+        Debug.Log($"[{gameObject.name}] State: '{previousState}' → '{newStateID}'");
     }
 
     private FSMState GetState(string newStateID)
     {
+        if (states == null || states.Length == 0) return null;
+
         for (int i = 0; i < states.Length; i++)
         {
-            if (states[i].ID == newStateID)
+            if (states[i] != null && states[i].ID == newStateID)
             {
                 return states[i];
             }
         }
+
         return null;
     }
 }
