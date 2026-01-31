@@ -163,7 +163,7 @@ MonoBehaviour:
   states:
   - ID: WanderState
     Actions:
-    - {fileID: 0}
+    - {fileID: -4240693441075729127}
     Transitions:
     - Decision: {fileID: 5152430003669640426}
       TrueState: ChaseState
@@ -197,7 +197,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0c99487c344fcf439dc923c82d4df5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
-  health: 10
+  maxHealth: 60
 --- !u!114 &5152430003669640426
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -210,7 +210,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f10e3a2aa9967e4d9a2bb5990ed0161, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DetectPlayer
-  range: 2.55
+  range: 3.96
   playerMask:
     serializedVersion: 2
     m_Bits: 64
@@ -226,7 +226,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d5114c51018679409ced22ed16f5b96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DecisionAttackPlayer
-  attackRange: 2
+  attackRange: 1.77
   playerMask:
     serializedVersion: 2
     m_Bits: 64
@@ -243,6 +243,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ActionChase
   chaseSpeed: 1.8
+  stopDistance: 1.5
+  rotationSpeed: 10
+  modelRotationOffset: 0
+  usePhysics: 1
 --- !u!114 &4640517407040905173
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -257,6 +261,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ActionAttack
   damage: 10
   timeBtwAttacks: 1
+  rotateToPlayer: 1
+  rotationSpeed: 10
+  modelRotationOffset: 0
 --- !u!114 &-4240693441075729127
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -277,5 +284,8 @@ MonoBehaviour:
   arrivalDistance: 0.5
   groundLayer:
     serializedVersion: 2
-    m_Bits: 1
-  showDebugLogs: 1
+    m_Bits: 257
+  rotateTowardsMovement: 1
+  rotationSpeed: 5
+  modelRotationOffset: 0
+  showDebugLogs: 0
