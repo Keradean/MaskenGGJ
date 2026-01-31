@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f00c7cdd7b3c0d2f796a1fa78a862e4b, type: 3}
+  m_Name: EnvironmentTest
+  m_EditorClassIdentifier: Assembly-CSharp::SoundDataSO
+  soundEntries:
+  - eventName: AmbientEnvironment
+    clips:
+    - {fileID: 8300000, guid: 0e77a306f1a0a4fb69e89a3c084ddaf8, type: 3}
+    volumeMultiplier: 1
+  - eventName: AmbientFire
+    clips: []
+    volumeMultiplier: 1
+  - eventName: AmbientWater
+    clips: []
+    volumeMultiplier: 1
+  - eventName: AmbientWind
+    clips: []
+    volumeMultiplier: 1
+  - eventName: BackgroundMusic
+    clips: []
+    volumeMultiplier: 1
+  - eventName: BossFightMusic
+    clips:
+    - {fileID: 8300000, guid: 2e73b9c3c98de63d9912c3c5a87f4ddb, type: 3}
+    volumeMultiplier: 1
+  - eventName: ChestOpen
+    clips: []
+    volumeMultiplier: 1
+  - eventName: CutsceneMusic
+    clips: []
+    volumeMultiplier: 1
+  - eventName: DoorClose
+    clips: []
+    volumeMultiplier: 1
+  - eventName: DoorOpen
+    clips: []
+    volumeMultiplier: 1
+  - eventName: LeverPull
+    clips: []
+    volumeMultiplier: 1
+  - eventName: MenuMusic
+    clips: []
+    volumeMultiplier: 1
+  - eventName: SecretFound
+    clips: []
+    volumeMultiplier: 1
+  - eventName: TrapActivate
+    clips: []
+    volumeMultiplier: 1
+  - eventName: VictoryMusic
+    clips: []
+    volumeMultiplier: 1

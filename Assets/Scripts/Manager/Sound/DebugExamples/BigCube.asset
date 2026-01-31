@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f00c7cdd7b3c0d2f796a1fa78a862e4b, type: 3}
+  m_Name: BigCube
+  m_EditorClassIdentifier: Assembly-CSharp::SoundDataSO
+  soundEntries:
+  - eventName: AttackMelee
+    clips: []
+    volumeMultiplier: 1
+  - eventName: AttackRanged
+    clips: []
+    volumeMultiplier: 1
+  - eventName: Block
+    clips: []
+    volumeMultiplier: 1
+  - eventName: Death
+    clips: []
+    volumeMultiplier: 1
+  - eventName: Dodge
+    clips: []
+    volumeMultiplier: 1
+  - eventName: Footstep
+    clips: []
+    volumeMultiplier: 1
+  - eventName: Idle
+    clips: []
+    volumeMultiplier: 1
+  - eventName: Jump
+    clips: []
+    volumeMultiplier: 1
+  - eventName: Land
+    clips: []
+    volumeMultiplier: 1
+  - eventName: Parry
+    clips: []
+    volumeMultiplier: 1
+  - eventName: SkillCast
+    clips: []
+    volumeMultiplier: 1
+  - eventName: SkillCharge
+    clips: []
+    volumeMultiplier: 1
+  - eventName: SpawnAppear
+    clips: []
+    volumeMultiplier: 1
+  - eventName: TakeDamage
+    clips: []
+    volumeMultiplier: 1
+  - eventName: VoiceCelebrate
+    clips: []
+    volumeMultiplier: 1
+  - eventName: VoiceGrunt
+    clips:
+    - {fileID: 8300000, guid: 5f3e518535a7a1df08ab1904f7d73ea5, type: 3}
+    volumeMultiplier: 1
+  - eventName: VoiceTaunt
+    clips: []
+    volumeMultiplier: 1
