@@ -19,7 +19,6 @@ GameObject:
   - component: {fileID: 6108091654591267183}
   - component: {fileID: 8148403556903767953}
   - component: {fileID: 4640517407040905173}
-  - component: {fileID: 3439255672359264788}
   - component: {fileID: -4240693441075729127}
   m_Layer: 7
   m_Name: EnemyWander
@@ -258,22 +257,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ActionAttack
   damage: 10
   timeBtwAttacks: 1
---- !u!114 &3439255672359264788
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7272461582736404475}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d5114c51018679409ced22ed16f5b96, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DecisionAttackPlayer
-  attackRange: 0
-  playerMask:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!114 &-4240693441075729127
 MonoBehaviour:
   m_ObjectHideFlags: 0
