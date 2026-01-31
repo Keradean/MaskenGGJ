@@ -11,9 +11,21 @@ public class PlayerStats : ScriptableObject
     public float Stamina; // Player Stamina
     public float MaxStamina; // Maximum player Stamina
 
+    [Header("Score Values")]
+    public int EnemyApeScore; 
+
+    [HideInInspector] public int Score;
+
+  
+    public void AddScore(int points)
+    {
+        Score += points;
+    }
+
     public void ResetStats()
     {
         Health = MaxHealth; // Reset health to maximum health
         Stamina = MaxStamina; // Reset stamina to maximum stamina
+        Score = 0;
     }
 }

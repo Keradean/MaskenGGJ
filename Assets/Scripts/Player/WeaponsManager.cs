@@ -92,6 +92,21 @@ public class WeaponsManager : MonoBehaviour
     // Index of previously equipped weapon (for saving ammo state)
     private int CurrentWeapon, previouWeapons;
 
+    // ================= RANGED STATE =================
+    private bool isRangedWeapon = false;
+    private GameObject projectilePrefab;
+    private float projectileSpeed = 20f;
+    private float projectileLifeTime = 5f;
+
+    // ================= MELEE STATE =================
+    private bool isMeleeWeapon = false;
+    private float meleeRange = 2f;
+    private float meleeRadius = 1f;
+    private float meleeDamage = 25f;
+    private float meleeCooldown = 1f;
+    private float meleeCooldownTimer = 0f;
+    private GameObject meleeEffectPrefab;
+
     // ==================================================
     // AWAKE METHOD
     // ==================================================
@@ -136,6 +151,13 @@ public class WeaponsManager : MonoBehaviour
         if (ShotCounter > 0)
             ShotCounter -= Time.deltaTime; // Decrease timer by frame time
 
+        // ==================================================
+        // MELEE TIMER
+        // ==================================================
+        // Count down the melee cooldown timer (time between melee attacks)
+        if (meleeCooldownTimer > 0f)
+            meleeCooldownTimer -= Time.deltaTime;
+
         // Update the ammo display in the UI every frame
         UpdateAmmoUI();
     }
@@ -148,84 +170,88 @@ public class WeaponsManager : MonoBehaviour
     // Also called by ShootHeld() for automatic weapons
     public void Shoot()
     {
-        // Check if weapon can shoot: has ammo AND fire rate cooldown is finished
+        // Priorität: Ranged → Melee → default Shoot
+        if (isRangedWeapon)
+        {
+            RangedShoot();
+            return;
+        }
+    
+        if (isMeleeWeapon)
+        {
+            MeleeAttack();
+            return;
+        }
+
+        // fallback (falls weder): existierender Shoot-Code
         if (CurrentAmmo > 0 && ShotCounter <= 0f)
         {
-            // Variable to store raycast hit information
-            // AUDIO INTEGRATION - Added by Julian with AI-Support
-            //SoundManager.Instance?.PlayWeaponSound(CurrentWeapon, transform.position);
-
-            // Variable to store raycast hit information
             RaycastHit hit;
-
-            // Perform a SphereCast (thick raycast) from camera forward
             if (Physics.SphereCast(Cam.position, 0.5f, Cam.forward, out hit, Range, ValidLayers))
             {
-                // Print the name of the object that was hit (for debugging)
-                Debug.Log("Hit: " + hit.transform.name);
-
-                // Check if the hit object is tagged as "Enemy"
                 if (hit.transform.CompareTag("Enemy"))
                 {
-                    // Try to get IDamageable component from the hit object
                     IDamageable damageable = hit.transform.GetComponent<IDamageable>();
-
-                    // If the object can take damage
                     if (damageable != null)
                     {
-                        // Deal damage to the enemy
                         damageable.TakeDamage(damage);
-                        // Spawn damage effect (blood, sparks, etc.) at hit point
-                        // AUDIO INTEGRATION - Added by Julian with AI-Support
-                        //SoundManager.Instance?.PlayImpactSoundMobs(hit.point);
                         Instantiate(DamageEffect, hit.point, Quaternion.identity);
                     }
-                    else // Enemy doesn't have IDamageable (shouldn't happen, but safety check)
+                    else
                     {
-                        // AUDIO INTEGRATION - Added by Julian with AI-Support
-                        //SoundManager.Instance?.PlayImpactSoundObjects(hit.point);
-                        // Spawn generic impact effect
                         Instantiate(ImpactEffect, hit.point, Quaternion.identity);
                     }
                 }
-                else // Hit something that's not an enemy (wall, ground, etc.)
+                else
                 {
-                    // AUDIO INTEGRATION - Added by Julian with AI-Support
-                    //SoundManager.Instance?.PlayImpactSoundObjects(hit.point);
-                    // Spawn generic impact effect
                     Instantiate(ImpactEffect, hit.point, Quaternion.identity);
                 }
             }
 
-            // WICHTIG: Dieser Code muss NACH dem Raycast-Check kommen,
-            // aber AUSSERHALB des if(Physics.SphereCast) Blocks!
-            // Er wird ausgeführt JEDES MAL wenn geschossen wird (egal ob getroffen oder nicht)
-
-            // Show muzzle flash effect (if it exists)
-            if (MuzzleFlare != null)
-            {
-                MuzzleFlare.SetActive(true);
-            }
-
-            // Start the muzzle flash timer
+            if (MuzzleFlare != null) MuzzleFlare.SetActive(true);
             FlareCounter = FlareDisplayTime;
-
-            // Decrease ammunition by 1
             CurrentAmmo--;
-
-            // Update the UI to show new ammo count
             UpdateAmmoUI();
-
-            // Start the fire rate cooldown timer (prevents shooting again immediately)
             ShotCounter = TimeBtwShots;
-        }
-        else if (CurrentAmmo <= 0)
-        {
-            // AUDIO INTEGRATION - Added by Julian with AI-Support
-            // SoundManager.Instance?.PlayWeaponEmpty(transform.position);
         }
     }
 
+    private void RangedShoot()
+    {
+        // Munition prüfen (falls du Munition verwenden willst)
+        if (CurrentAmmo <= 0) return;
+
+        if (projectilePrefab == null)
+        {
+            Debug.LogWarning("[WeaponsManager] projectilePrefab fehlt für die aktuelle Waffe.");
+            return;
+        }
+
+        // Spawnposition: kurz vor Kamera (oder ein Muzzle-Transform, falls vorhanden)
+        Vector3 spawnPos = Cam.position + Cam.forward * 0.5f;
+        Quaternion spawnRot = Quaternion.LookRotation(Cam.forward);
+
+        GameObject proj = Instantiate(projectilePrefab, spawnPos, spawnRot);
+        Rigidbody rb = proj.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.linearVelocity = Cam.forward * projectileSpeed;
+        }
+
+        // Init Projectile (falls Script vorhanden)
+        var ink = proj.GetComponent<InkProjectile>();
+        if (ink != null)
+        {
+            ink.Init(projectileLifeTime, damage);
+        }
+
+        if (MuzzleFlare != null) MuzzleFlare.SetActive(true);
+        FlareCounter = FlareDisplayTime;
+
+        CurrentAmmo--;
+        UpdateAmmoUI();
+        ShotCounter = TimeBtwShots;
+    }
 
     // ==================================================
     // SHOOT HELD METHOD
@@ -307,9 +333,13 @@ public class WeaponsManager : MonoBehaviour
     // int weaponToSet - Index of weapon in Weapons array to equip
     public void SetWeapon(int weaponToSet)
     {
+        // Make sure weapons array is not empty and index is valid
+        if (Weapons == null || Weapons.Length == 0) return;
+        if (weaponToSet < 0 || weaponToSet >= Weapons.Length) return;
+
         // Save current weapon's ammo state before switching
         // Only if we're actually switching weapons (not initial setup)
-        if (previouWeapons != CurrentWeapon)
+        if (previouWeapons != CurrentWeapon && Weapons.Length > 0)
         {
             // Save current ammo to the previous weapon's data
             Weapons[previouWeapons].CurrentAmmo = CurrentAmmo;
@@ -320,24 +350,42 @@ public class WeaponsManager : MonoBehaviour
         // LOAD NEW WEAPON'S DATA
         // ==================================================
         // Copy all stats from the new weapon to active variables
-        Range = Weapons[weaponToSet].Range;
-        FlareDisplayTime = Weapons[weaponToSet].FlareDisplayTime;
-        AutoFire = Weapons[weaponToSet].AutoFire;
-        TimeBtwShots = Weapons[weaponToSet].TimeBtwShots;
-        CurrentAmmo = Weapons[weaponToSet].CurrentAmmo;
-        ClipSize = Weapons[weaponToSet].ClipSize;
-        RemainingAmmo = Weapons[weaponToSet].RemainingAmmo;
-        pickUpValue = Weapons[weaponToSet].pickUpValue;
-        damage = Weapons[weaponToSet].damage;
-        MuzzleFlare = Weapons[weaponToSet].MuzzleFlare;
+        var w = Weapons[weaponToSet];
+
+        // Kopiere Ranged-Felder
+        isRangedWeapon = w.IsRanged;
+        projectilePrefab = w.projectilePrefab;
+        projectileSpeed = w.projectileSpeed;
+        projectileLifeTime = w.projectileLifeTime;
+
+        // Kopiere Ranged/Ranged-Defaults in aktive Werte
+        Range = w.Range;
+        FlareDisplayTime = w.FlareDisplayTime;
+        AutoFire = w.AutoFire;
+        TimeBtwShots = w.TimeBtwShots;
+        CurrentAmmo = w.CurrentAmmo;
+        ClipSize = w.ClipSize;
+        RemainingAmmo = w.RemainingAmmo;
+        pickUpValue = w.pickUpValue;
+        damage = w.damage;
+        MuzzleFlare = w.MuzzleFlare;
+
+        // Kopiere Melee-Felder
+        isMeleeWeapon = w.IsMelee;
+        meleeRange = w.MeleeRange;
+        meleeRadius = w.MeleeRadius;
+        meleeDamage = w.MeleeDamage;
+        meleeCooldown = w.MeleeCooldown;
+        meleeEffectPrefab = w.MeleeEffect;
+        meleeCooldownTimer = 0f;
 
         // ==================================================
         // UPDATE VISUAL WEAPON MODELS
         // ==================================================
         // Hide all weapon GameObjects first
-        foreach (Weapon w in Weapons)
+        foreach (Weapon ww in Weapons)
         {
-            w.gameObject.SetActive(false); // Disable each weapon's 3D model
+            ww.gameObject.SetActive(false); // Disable each weapon's 3D model
         }
 
         // Show only the newly equipped weapon's GameObject
@@ -348,6 +396,68 @@ public class WeaponsManager : MonoBehaviour
 
         // Remember this weapon as the previous weapon for next switch
         previouWeapons = CurrentWeapon;
+    }
+
+    // ==================================================
+    // MELEE IMPLEMENTATION
+    // ==================================================
+    // Aufruf z.B. aus Input: weaponsManager.MeleeAttack()
+    public void MeleeAttack()
+    {
+        // Nur ausführen wenn es eine Nahkampfwaffe ist
+        if (!isMeleeWeapon) return;
+
+        // Prüfen ob Cooldown abgelaufen ist
+        if (meleeCooldownTimer > 0f) return;
+
+        // Zielpunkt vor Kamera
+        Vector3 center = Cam.position + Cam.forward * meleeRange;
+
+        // Trefferbereich prüfen
+        Collider[] hits = Physics.OverlapSphere(center, meleeRadius, ValidLayers);
+        bool hitSomething = false;
+
+        foreach (var col in hits)
+        {
+            if (col == null) continue;
+            var go = col.transform;
+            if (go.CompareTag("Enemy"))
+            {
+                IDamageable dmg = go.GetComponent<IDamageable>();
+                if (dmg != null)
+                {
+                    dmg.TakeDamage(meleeDamage);
+                    hitSomething = true;
+
+                    // Spawn effekt am Kollisionspunkt (falls vorhanden)
+                    Vector3 hitPoint = col.ClosestPoint(center);
+                    if (meleeEffectPrefab != null)
+                        Instantiate(meleeEffectPrefab, hitPoint, Quaternion.identity);
+                }
+            }
+        }
+
+        // Optional: Feedback wenn nichts getroffen wurde (sound, animation)
+        if (!hitSomething)
+        {
+            // spawn a small impact at center for feedback (optional)
+            if (meleeEffectPrefab != null)
+                Instantiate(meleeEffectPrefab, center, Quaternion.identity);
+        }
+
+        // set cooldown
+        meleeCooldownTimer = meleeCooldown;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        // Visualize melee area in editor
+        if (Cam != null && isMeleeWeapon)
+        {
+            Gizmos.color = Color.red;
+            Vector3 center = Cam.position + Cam.forward * meleeRange;
+            Gizmos.DrawWireSphere(center, meleeRadius);
+        }
     }
 
     // ==================================================

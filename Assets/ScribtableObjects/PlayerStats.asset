@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77b7b856b0c5b284b940b49650cab907, type: 3}
   m_Name: PlayerStats
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStats
-  Health: 1000
-  MaxHealth: 1000
+  Health: 100
+  MaxHealth: 100
   Stamina: 100
   MaxStamina: 100
+  EnemyApeScore: 1000
+  Score: 0

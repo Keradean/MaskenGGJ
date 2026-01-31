@@ -77,4 +77,24 @@ public class Weapon : MonoBehaviour
     // Example: 25.0f = deals 25 damage to enemies (if enemy has 100 health, 4 shots to kill)
     // Higher value = more powerful weapon
     public float damage;
+
+    // ==================================================
+    // RANGED PROJECTILE SETTINGS
+    // ==================================================
+    [Header("Ranged")]
+    public bool IsRanged = false;
+    public GameObject projectilePrefab;
+    public float projectileSpeed = 20f;
+    public float projectileLifeTime = 5f;
+
+    // ==================================================
+    // MELEE 
+    // ==================================================
+    [Header("Melee")]
+    public bool IsMelee = false;           // wenn true, ist die Waffe Nahkampf
+    public float MeleeRange = 2f;         // Entfernung vom Spieler zur Trefferposition
+    public float MeleeRadius = 1f;        // Radius der Trefferzone
+    public float MeleeDamage = 25f;       // Schaden des Nahkampfangriffs
+    public float MeleeCooldown = 1f;      // Cooldown zwischen Nahkampfangriffen
+    public GameObject MeleeEffect;        // Visual/effect beim Treffer 
 }

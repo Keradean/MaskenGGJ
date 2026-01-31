@@ -29,7 +29,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Image healthBar;  // Visual fill image for health bar (fills from 0 to 1 based on current health)
     [SerializeField] private Image staminaBar;  // Visual fill image for stamina bar (fills from 0 to 1 based on current stamina)
     [SerializeField] public Image ammoBar;  // Visual fill image for ammo bar (fills from 0 to 1 based on current ammo in clip)
-    [SerializeField] private Image oxyBar;  // Visual fill image for oxygen bar (fills from 0 to 1 based on current oxygen)
 
     // ==================================================
     // VARIABLE DECLARATION - UI TEXT ELEMENTS
@@ -40,6 +39,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI healthTMP; // Text display for current health value (e.g. "75")
     [SerializeField] private TextMeshProUGUI staminaTMP; // Text display for current stamina value (e.g. "100")
     [SerializeField] public TextMeshProUGUI ammoTMP; // Text display for ammo count (e.g. "15 / 120")
+    [SerializeField] public TextMeshProUGUI scoreTMP; // Text display for player's score (e.g. "Score: 2500")
 
     // ==================================================
     // VARIABLE DECLARATION - GAME SCREENS
@@ -87,42 +87,42 @@ public class UIManager : MonoBehaviour
             staminaBar.fillAmount = 0; // If max stamina is 0, empty the bar
     }
 
-        /*
-        // ==================================================
-        // UPDATE AMMO BAR
-        // ==================================================
-        // Calculate fill amount (0.0 to 1.0) based on current ammo in clip vs clip size
-        if (WeaponsManager.ClipSize > 0) // Safety check: prevent division by zero
-            // Cast to float because CurrentAmmo and ClipSize might be integers
-            // Example: 15/30 = 0.5 (50% filled - half a clip remaining)
-            ammoBar.fillAmount = (float)WeaponsManager.CurrentAmmo / (float)WeaponsManager.ClipSize;
-        else
-            ammoBar.fillAmount = 0; // If clip size is 0, empty the bar
+    /*
+    // ==================================================
+    // UPDATE AMMO BAR
+    // ==================================================
+    // Calculate fill amount (0.0 to 1.0) based on current ammo in clip vs clip size
+    if (WeaponsManager.ClipSize > 0) // Safety check: prevent division by zero
+        // Cast to float because CurrentAmmo and ClipSize might be integers
+        // Example: 15/30 = 0.5 (50% filled - half a clip remaining)
+        ammoBar.fillAmount = (float)WeaponsManager.CurrentAmmo / (float)WeaponsManager.ClipSize;
+    else
+        ammoBar.fillAmount = 0; // If clip size is 0, empty the bar
 
-        // ==================================================
-        // UPDATE TEXT DISPLAYS
-        // ==================================================
-        // $"{...}" is string interpolation - inserts variables into text
+    // ==================================================
+    // UPDATE TEXT DISPLAYS
+    // ==================================================
+    // $"{...}" is string interpolation - inserts variables into text
 
-        // Display health as whole number (no decimals)
-        // Mathf.FloorToInt rounds down to nearest integer (75.9 becomes 75)
-        //healthTMP.text = $"{Mathf.FloorToInt(stats.Health)}";
+    // Display health as whole number (no decimals)
+     Mathf.FloorToInt rounds down to nearest integer (75.9 becomes 75)
+     healthTMP.text = $"{Mathf.FloorToInt(stats.Health)}";
 
-        // Display stamina as whole number (no decimals)
-        //staminaTMP.text = $"{Mathf.FloorToInt(stats.Stamina)}";
+    // Display stamina as whole number (no decimals)
+    //staminaTMP.text = $"{Mathf.FloorToInt(stats.Stamina)}";
 
-        // Display player level (e.g. "Level 5")
-        levelTMP.text = $"Level {stats.Level}";
+    // Display ammo count (e.g. "15 / 120" = 15 in clip, 120 remaining)
+    ammoTMP.text = $"{WeaponsManager.CurrentAmmo} / {WeaponsManager.RemainingAmmo}";
 
-        // Display ammo count (e.g. "15 / 120" = 15 in clip, 120 remaining)
-        ammoTMP.text = $"{WeaponsManager.CurrentAmmo} / {WeaponsManager.RemainingAmmo}";
-    }
-    */
-        // ==================================================
-        // SHOW DEATH SCREEN METHOD
-        // ==================================================
-        // This public method is called when the player dies
-        // It displays the death/game over screen and pauses the game
+    // Display Score count 
+    scoreTMP.text = = $"{Mathf.FloorToInt(stats.Stamina)}";
+}
+*/
+    // ==================================================
+    // SHOW DEATH SCREEN METHOD
+    // ==================================================
+    // This public method is called when the player dies
+    // It displays the death/game over screen and pauses the game
     public void ShowDeathScreen()
     {
         // Enable/show the death screen GameObject
