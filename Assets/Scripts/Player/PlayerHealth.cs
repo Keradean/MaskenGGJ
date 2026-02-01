@@ -107,7 +107,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         if (uiManager == null) return;
 
         // Show the death screen UI (Game Over screen, respawn options, etc.)
-        uiManager.ShowDeathScreen();
+       // uiManager.ShowDeathScreen();
 
         // Print death message to console (for debugging purposes)
         Debug.Log("I am Dead");

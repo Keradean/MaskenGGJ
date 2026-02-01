@@ -17,7 +17,7 @@ public class UIManager : MonoBehaviour
 
     [Header("Reference")] // Header in Unity Inspector for organizing references
     [SerializeField] private PlayerStats stats; // Reference to the PlayerStats scriptable object (stores health, stamina, level data)
-   // [SerializeField] private WeaponsManager WeaponsManager; // Reference to the WeaponsManager (handles weapon and ammo data)
+    [SerializeField] private WeaponsManager WeaponsManager; // Reference to the WeaponsManager (handles weapon and ammo data)
     [SerializeField] private PlayerController playerController; // Reference to the PlayerController (controls player movement and camera)
 
     // ==================================================
@@ -25,32 +25,30 @@ public class UIManager : MonoBehaviour
     // ==================================================
 
     [Header("Bars")] // Header for UI bar elements
-    [SerializeField] private Image BgBar;  // Background bar image (not currently used in code)
     [SerializeField] private Image healthBar;  // Visual fill image for health bar (fills from 0 to 1 based on current health)
     [SerializeField] private Image staminaBar;  // Visual fill image for stamina bar (fills from 0 to 1 based on current stamina)
-    [SerializeField] public Image ammoBar;  // Visual fill image for ammo bar (fills from 0 to 1 based on current ammo in clip)
+    //[SerializeField] public Image ammoBar;  // Visual fill image for ammo bar (fills from 0 to 1 based on current ammo in clip)
 
     // ==================================================
     // VARIABLE DECLARATION - UI TEXT ELEMENTS
     // ==================================================
-
+    
     [Header("Text")] // Header for text UI elements
-    [SerializeField] private TextMeshProUGUI levelTMP; // Text display for player's level (e.g. "Level 5")
-    [SerializeField] private TextMeshProUGUI healthTMP; // Text display for current health value (e.g. "75")
-    [SerializeField] private TextMeshProUGUI staminaTMP; // Text display for current stamina value (e.g. "100")
-    [SerializeField] public TextMeshProUGUI ammoTMP; // Text display for ammo count (e.g. "15 / 120")
+    //[SerializeField] private TextMeshProUGUI healthTMP; // Text display for current health value (e.g. "75")
+    //[SerializeField] private TextMeshProUGUI staminaTMP; // Text display for current stamina value (e.g. "100")
+    //[SerializeField] public TextMeshProUGUI ammoTMP; // Text display for ammo count (e.g. "15 / 120")
     [SerializeField] public TextMeshProUGUI scoreTMP; // Text display for player's score (e.g. "Score: 2500")
-
+    
     // ==================================================
     // VARIABLE DECLARATION - GAME SCREENS
     // ==================================================
-
+    /*
     [Header("DeathScreen")] // Header for death screen
     [SerializeField] private GameObject showDeathScreen; // GameObject containing the death/game over screen UI
 
     [Header("PausedScreen")] // Header for pause screen
     [SerializeField] private GameObject showPausedScreen; // GameObject containing the pause menu UI
-
+    */
     // ==================================================
     // UPDATE METHOD
     // ==================================================
@@ -85,7 +83,27 @@ public class UIManager : MonoBehaviour
             staminaBar.fillAmount = stats.Stamina / stats.MaxStamina; // Example: 50/100 = 0.5 (50% filled)
         else
             staminaBar.fillAmount = 0; // If max stamina is 0, empty the bar
+        
+        // ==================================================
+        // UPDATE TEXT DISPLAYS
+        // ==================================================
+        // $"{...}" is string interpolation - inserts variables into text
+
+        // Display health as whole number (no decimals)
+        // Mathf.FloorToInt rounds down to nearest integer(75.9 becomes 75)
+        //healthTMP.text = $"{Mathf.FloorToInt(stats.Health)}";
+
+        // Display stamina as whole number (no decimals)
+        //staminaTMP.text = $"{Mathf.FloorToInt(stats.Stamina)}";
+
+        // Display ammo count (e.g. "15 / 120" = 15 in clip, 120 remaining)
+        //ammoTMP.text = $"{WeaponsManager.CurrentAmmo} / {WeaponsManager.RemainingAmmo}";
+        
+        // Display Score count 
+        scoreTMP.text = $"{stats.Score}";
+        
     }
+
 
     /*
     // ==================================================
@@ -98,26 +116,9 @@ public class UIManager : MonoBehaviour
         ammoBar.fillAmount = (float)WeaponsManager.CurrentAmmo / (float)WeaponsManager.ClipSize;
     else
         ammoBar.fillAmount = 0; // If clip size is 0, empty the bar
+    */
 
-    // ==================================================
-    // UPDATE TEXT DISPLAYS
-    // ==================================================
-    // $"{...}" is string interpolation - inserts variables into text
-
-    // Display health as whole number (no decimals)
-     Mathf.FloorToInt rounds down to nearest integer (75.9 becomes 75)
-     healthTMP.text = $"{Mathf.FloorToInt(stats.Health)}";
-
-    // Display stamina as whole number (no decimals)
-    //staminaTMP.text = $"{Mathf.FloorToInt(stats.Stamina)}";
-
-    // Display ammo count (e.g. "15 / 120" = 15 in clip, 120 remaining)
-    ammoTMP.text = $"{WeaponsManager.CurrentAmmo} / {WeaponsManager.RemainingAmmo}";
-
-    // Display Score count 
-    scoreTMP.text = = $"{Mathf.FloorToInt(stats.Stamina)}";
-}
-*/
+    /*
     // ==================================================
     // SHOW DEATH SCREEN METHOD
     // ==================================================
@@ -231,4 +232,6 @@ public class UIManager : MonoBehaviour
         // Toggle pause menu on/off
         ShowPausedScreen();
     }
+    */
+
 }

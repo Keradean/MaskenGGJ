@@ -23,7 +23,7 @@ public class WeaponsManager : MonoBehaviour
     // Maximum shooting range of the current weapon (in Unity units)
     public float Range;
 
-    // Reference to the camera transform (used for shooting direction)
+    // Reference to the camera transform 
     // Weapons shoot in the direction the camera is looking
     public Transform Cam;
 
@@ -36,7 +36,7 @@ public class WeaponsManager : MonoBehaviour
     public GameObject DamageEffect; // Effect for hitting damageable objects (enemies, destructibles)
 
     // Reference to the active muzzle flash effect GameObject
-    public GameObject MuzzleFlare;
+    //public GameObject MuzzleFlare;
 
     // How long the muzzle flash stays visible (in seconds)
     public float FlareDisplayTime;
@@ -136,12 +136,13 @@ public class WeaponsManager : MonoBehaviour
         if (FlareCounter > 0)
         {
             FlareCounter -= Time.deltaTime; // Decrease timer by frame time
-
+            /*
             // When timer reaches 0, hide the muzzle flash
             if (FlareCounter <= 0 && MuzzleFlare != null)
             {
                 MuzzleFlare.SetActive(false); // Disable the muzzle flash GameObject
             }
+            */
         }
 
         // ==================================================
@@ -159,7 +160,7 @@ public class WeaponsManager : MonoBehaviour
             meleeCooldownTimer -= Time.deltaTime;
 
         // Update the ammo display in the UI every frame
-        UpdateAmmoUI();
+       // UpdateAmmoUI();
     }
 
     // ==================================================
@@ -183,7 +184,7 @@ public class WeaponsManager : MonoBehaviour
             return;
         }
 
-        // fallback (falls weder): existierender Shoot-Code
+        // fallback: existierender Shoot-Code
         if (CurrentAmmo > 0 && ShotCounter <= 0f)
         {
             RaycastHit hit;
@@ -208,10 +209,10 @@ public class WeaponsManager : MonoBehaviour
                 }
             }
 
-            if (MuzzleFlare != null) MuzzleFlare.SetActive(true);
+           // if (MuzzleFlare != null) MuzzleFlare.SetActive(true);
             FlareCounter = FlareDisplayTime;
             CurrentAmmo--;
-            UpdateAmmoUI();
+            //UpdateAmmoUI();
             ShotCounter = TimeBtwShots;
         }
     }
@@ -223,7 +224,7 @@ public class WeaponsManager : MonoBehaviour
 
         if (projectilePrefab == null)
         {
-            Debug.LogWarning("[WeaponsManager] projectilePrefab fehlt für die aktuelle Waffe.");
+            Debug.LogWarning("projectilePrefab fehlt für die aktuelle Waffe.");
             return;
         }
 
@@ -245,11 +246,11 @@ public class WeaponsManager : MonoBehaviour
             ink.Init(projectileLifeTime, damage);
         }
 
-        if (MuzzleFlare != null) MuzzleFlare.SetActive(true);
+        //if (MuzzleFlare != null) MuzzleFlare.SetActive(true);
         FlareCounter = FlareDisplayTime;
 
         CurrentAmmo--;
-        UpdateAmmoUI();
+       // UpdateAmmoUI();
         ShotCounter = TimeBtwShots;
     }
 
@@ -306,7 +307,7 @@ public class WeaponsManager : MonoBehaviour
             RemainingAmmo = 0;
         }
 
-        UpdateAmmoUI();
+       // UpdateAmmoUI();
     }
 
     // ==================================================
@@ -368,7 +369,7 @@ public class WeaponsManager : MonoBehaviour
         RemainingAmmo = w.RemainingAmmo;
         pickUpValue = w.pickUpValue;
         damage = w.damage;
-        MuzzleFlare = w.MuzzleFlare;
+        //MuzzleFlare = w.MuzzleFlare;
 
         // Kopiere Melee-Felder
         isMeleeWeapon = w.IsMelee;
@@ -376,7 +377,7 @@ public class WeaponsManager : MonoBehaviour
         meleeRadius = w.MeleeRadius;
         meleeDamage = w.MeleeDamage;
         meleeCooldown = w.MeleeCooldown;
-        meleeEffectPrefab = w.MeleeEffect;
+        //meleeEffectPrefab = w.MeleeEffect;
         meleeCooldownTimer = 0f;
 
         // ==================================================
@@ -392,7 +393,7 @@ public class WeaponsManager : MonoBehaviour
         Weapons[weaponToSet].gameObject.SetActive(true);
 
         // Update UI to show new weapon's ammo
-        UpdateAmmoUI();
+        //UpdateAmmoUI();
 
         // Remember this weapon as the previous weapon for next switch
         previouWeapons = CurrentWeapon;
@@ -428,15 +429,16 @@ public class WeaponsManager : MonoBehaviour
                 {
                     dmg.TakeDamage(meleeDamage);
                     hitSomething = true;
-
+                    
                     // Spawn effekt am Kollisionspunkt (falls vorhanden)
                     Vector3 hitPoint = col.ClosestPoint(center);
                     if (meleeEffectPrefab != null)
                         Instantiate(meleeEffectPrefab, hitPoint, Quaternion.identity);
+                    
                 }
             }
         }
-
+        
         // Optional: Feedback wenn nichts getroffen wurde (sound, animation)
         if (!hitSomething)
         {
@@ -444,20 +446,9 @@ public class WeaponsManager : MonoBehaviour
             if (meleeEffectPrefab != null)
                 Instantiate(meleeEffectPrefab, center, Quaternion.identity);
         }
-
+        
         // set cooldown
         meleeCooldownTimer = meleeCooldown;
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        // Visualize melee area in editor
-        if (Cam != null && isMeleeWeapon)
-        {
-            Gizmos.color = Color.red;
-            Vector3 center = Cam.position + Cam.forward * meleeRange;
-            Gizmos.DrawWireSphere(center, meleeRadius);
-        }
     }
 
     // ==================================================
@@ -465,13 +456,14 @@ public class WeaponsManager : MonoBehaviour
     // ==================================================
     // This public method updates the ammo display in the UI
     // Shows current ammo / reserve ammo and updates the ammo bar fill
+    /*
     public void UpdateAmmoUI()
     {
         // Only update if UIManager exists
         if (UIManager != null)
         {
             // Update ammo text (e.g. "15 / 120")
-            UIManager.ammoTMP.text = $"{CurrentAmmo} / {RemainingAmmo}";
+           // UIManager.ammoTMP.text = $"{CurrentAmmo} / {RemainingAmmo}";
 
             // Update ammo bar fill amount (0.0 to 1.0)
             if (ClipSize > 0) // Prevent division by zero
@@ -481,12 +473,14 @@ public class WeaponsManager : MonoBehaviour
                 UIManager.ammoBar.fillAmount = 0; // Empty bar if no clip size
         }
     }
-
+    */
     // ==================================================
     // NEXT WEAPON METHOD
     // ==================================================
     // This public method switches to the next weapon in the array
     // Called when player presses "next weapon" button (e.g. mouse wheel up)
+    
+    /*
     public void NextWeapon()
     {
         // Increment weapon index
@@ -521,4 +515,5 @@ public class WeaponsManager : MonoBehaviour
         // Equip the new weapon
         SetWeapon(CurrentWeapon);
     }
+    */
 }
