@@ -682,11 +682,11 @@ PlayerSettings:
   captureStartupLogs: {}
   activeInputHandler: 1
   windowsGamepadBackendHint: 0
-  cloudProjectId: 4a59b9c7-1ced-45f3-97fc-51586624ae79
+  cloudProjectId: efcbd390-b97f-45da-acbb-569cd793e382
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: Projekt_UI
-  organizationId: unity_4926d6d5c791c695b9ba
+  projectName: MaskenGGJ
+  organizationId: unity_df4efbb2b81cb91f081c
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   hmiLoadingImage: {fileID: 0}

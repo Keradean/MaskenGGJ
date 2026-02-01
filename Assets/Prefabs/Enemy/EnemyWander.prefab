@@ -20,7 +20,7 @@ GameObject:
   - component: {fileID: 8148403556903767953}
   - component: {fileID: 4640517407040905173}
   - component: {fileID: -4240693441075729127}
-  m_Layer: 7
+  m_Layer: 14
   m_Name: EnemyWander
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -198,6 +198,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
   maxHealth: 60
+  playerStats: {fileID: 0}
 --- !u!114 &5152430003669640426
 MonoBehaviour:
   m_ObjectHideFlags: 0

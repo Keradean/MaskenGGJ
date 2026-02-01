@@ -9,7 +9,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable
 {
     [Header("Config")]
     [SerializeField] private float maxHealth = 100f;
-    [SerializeField] private PlayerStats playerStats; 
+    [SerializeField] private PlayerStats playerStats;  
 
     public float CurrentHealth { get; private set; }
 
@@ -58,8 +58,21 @@ public class EnemyHealth : MonoBehaviour, IDamageable
 
         if(playerStats != null)
         {
-            playerStats.AddScore(playerStats.Score + playerStats.EnemyApeScore);
-            Debug.Log($"Her mit den Moneten");
+            if (gameObject.layer == LayerMask.NameToLayer("Ape"))
+            {
+                playerStats.AddScore(playerStats.EnemyApeScore);
+            }
+            else if (gameObject.layer == LayerMask.NameToLayer("Fox"))
+            {
+                playerStats.AddScore(playerStats.FoxScore);
+            }
+            else if (gameObject.layer == LayerMask.NameToLayer("Boss"))
+            {
+                playerStats.AddScore(playerStats.BossScore);
+            }
+
+
+                Debug.Log($"Her mit den Moneten");
         }
         // Disable AI
         if (enemyBrain != null)

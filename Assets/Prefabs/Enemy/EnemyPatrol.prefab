@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 4356109246819478221}
   - component: {fileID: 3375708899246920240}
   - component: {fileID: 5784477735345385821}
-  m_Layer: 7
+  m_Layer: 14
   m_Name: EnemyPatrol
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -200,6 +200,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
   maxHealth: 60
+  playerStats: {fileID: 0}
 --- !u!114 &4070476569139312547
 MonoBehaviour:
   m_ObjectHideFlags: 0

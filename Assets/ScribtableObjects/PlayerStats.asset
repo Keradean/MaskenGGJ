@@ -17,4 +17,6 @@ MonoBehaviour:
   Stamina: 100
   MaxStamina: 100
   EnemyApeScore: 1000
+  FoxScore: 500
+  BossScore: 5000
   Score: 0

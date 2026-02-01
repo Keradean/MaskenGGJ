@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Enemy
   - Projectile
+  - Fox
+  - Ape
   layers:
   - Default
   - TransparentFX
@@ -20,9 +22,9 @@ TagManager:
   - Clip
   - Projectile
   - Effect
-  - 
-  - 
-  - 
+  - Ape
+  - Fox
+  - Boss
   - 
   - 
   - 
@@ -43,3 +45,5 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  m_RenderingLayers:
+  - Default
