@@ -119,7 +119,7 @@ public class WeaponsManager : MonoBehaviour
             UIManager = FindFirstObjectByType<UIManager>();
 
         // Equip the first weapon (index 0) at game start
-        SetWeapon(0);
+        if (Weapons.Length > 0) SetWeapon(0);
     }
 
     // ==================================================
