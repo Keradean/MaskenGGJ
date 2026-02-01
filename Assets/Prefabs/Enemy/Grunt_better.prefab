@@ -1282,7 +1282,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d5114c51018679409ced22ed16f5b96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DecisionAttackPlayer
-  attackRange: 2
+  attackRange: 2.5
   playerMask:
     serializedVersion: 2
     m_Bits: 64

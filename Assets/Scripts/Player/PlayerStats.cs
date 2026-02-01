@@ -19,7 +19,7 @@ public class PlayerStats : ScriptableObject
   
     public void AddScore(int points)
     {
-        Score += points;
+        Score += EnemyApeScore;
     }
 
     public void ResetStats()
