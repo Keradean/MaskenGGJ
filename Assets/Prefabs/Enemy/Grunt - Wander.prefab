@@ -138,7 +138,7 @@ GameObject:
   - component: {fileID: 980189975655124435}
   - component: {fileID: 8878388165868082689}
   - component: {fileID: 1977236237684553545}
-  m_Layer: 7
+  m_Layer: 11
   m_Name: Grunt - Wander
   m_TagString: Enemy
   m_Icon: {fileID: 0}

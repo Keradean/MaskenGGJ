@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour
         HandleShooting();
         HandleMelee();        
         HandleReloading();
-        HandleWeaponSwitching();
+       // HandleWeaponSwitching();
     }
 
     private void HandleMovement()
@@ -119,7 +119,7 @@ public class PlayerController : MonoBehaviour
     }
 
     // ========================================
-    // GEÄNDERT: Nur Einzelschuss!
+    // Nur Einzelschuss!
     // ========================================
     private void HandleShooting()
     {
@@ -128,12 +128,10 @@ public class PlayerController : MonoBehaviour
         {
             weaponsManager.Shoot();
         }
-
-        // ShootHeld() ENTFERNT - kein Automatic Fire!
     }
 
     // ========================================
-    // NEU: Nahkampf-Handler
+    // Nahkampf-Handler
     // ========================================
     private void HandleMelee()
     {
@@ -151,7 +149,7 @@ public class PlayerController : MonoBehaviour
             weaponsManager.Reload();
         }
     }
-
+    /*
     private void HandleWeaponSwitching()
     {
         if (inputManager.NextTriggered && weaponsManager != null)
@@ -164,13 +162,13 @@ public class PlayerController : MonoBehaviour
             weaponsManager.PreviousWeapon();
         }
     }
-
+    */
     private void HandlePausedUnpaused()
     {
         if (inputManager.PausedTriggered)
         {
             Debug.Log("Take your time...");
-            uiManager.PausedUnpaused();
+            //uiManager.PausedUnpaused();
         }
     }
 }

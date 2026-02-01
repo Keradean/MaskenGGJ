@@ -14,7 +14,7 @@ public class PlayerStats : ScriptableObject
     [Header("Score Values")]
     public int EnemyApeScore; 
 
-    [HideInInspector] public int Score;
+    public int Score;
 
   
     public void AddScore(int points)

@@ -199,6 +199,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
   maxHealth: 60
+  playerStats: {fileID: 0}
 --- !u!114 &6547094304950740780
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -58,7 +58,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable
 
         if(playerStats != null)
         {
-            playerStats.AddScore(playerStats.EnemyApeScore);
+            playerStats.AddScore(playerStats.Score + playerStats.EnemyApeScore);
             Debug.Log($"Her mit den Moneten");
         }
         // Disable AI

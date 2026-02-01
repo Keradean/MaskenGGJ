@@ -26,7 +26,7 @@ public class Weapon : MonoBehaviour
 
     // Reference to the muzzle flash effect GameObject (visual effect when shooting)
     // This is typically a particle system or sprite that appears at the gun barrel
-    public GameObject MuzzleFlare;
+    //public GameObject MuzzleFlare;
 
     // How long the muzzle flash is visible (in seconds)
     // Example: 0.1f = flash appears for 0.1 seconds then disappears
